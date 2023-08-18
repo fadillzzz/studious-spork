@@ -38,11 +38,13 @@ npm run dev
 
 # Tests
 
-There are some test cases that have been written using Jest. They can be located under the `tests/` directory. To run them, simply execute the following command:
+There are some integration test cases that have been written using Jest. They can be located under the `tests/` directory. To run them, simply execute the following command:
 
 ```
 npx jest
 ```
+
+**Note**: Consider using a different `PG_CONNECTION` connection string for testing to avoid cluttering your main database.
 
 # API
 
