@@ -36,6 +36,8 @@ Run the `dev` command to start the API in dev mode. This will let you make any c
 npm run dev
 ```
 
+By default the API will run on port 3000. But you can override this by setting the `PORT` environment variable.
+
 # Tests
 
 There are some integration test cases that have been written using Jest. They can be located under the `tests/` directory. To run them, simply execute the following command:
