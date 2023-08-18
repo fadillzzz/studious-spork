@@ -4,4 +4,9 @@ export class User extends Model {
     static get tableName() {
         return "users";
     }
+
+    id: string;
+    name: string;
+    email: string;
+    password: string;
 }
