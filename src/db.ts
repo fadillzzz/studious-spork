@@ -3,6 +3,9 @@ import { Model } from "objection";
 
 export let connection: Knex;
 
+/**
+ * Initialize connection to the database
+ */
 export function initDb() {
     // Initialize knex.
     connection = knex({
@@ -18,6 +21,9 @@ export function initDb() {
     Model.knex(connection);
 }
 
+/**
+ * Disconnect from the database
+ */
 export async function disconnectDb() {
     await connection.destroy();
 }

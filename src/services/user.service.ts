@@ -24,8 +24,16 @@ export class UserService {
         return user;
     }
 
+    async get(id: string): Promise<User | null> {
+        return this.userRepo.get(id);
+    }
+
     async getByEmail(email: string): Promise<User | null> {
         return this.userRepo.getByEmail(email);
+    }
+
+    async exists(id: string): Promise<boolean> {
+        return this.userRepo.exists(id);
     }
 
     async existsByEmail(email: string): Promise<boolean> {

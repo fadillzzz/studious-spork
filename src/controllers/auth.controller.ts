@@ -12,13 +12,7 @@ export class AuthController {
         this.userService = userService;
     }
 
-    async create(req: Request, res: Response) {
-        const result = validationResult(req);
-
-        if (!result.isEmpty()) {
-            return res.send({ errors: result.array() });
-        }
-
+    async create(req: Request, res: Response): Promise<Response> {
         const validated = matchedData(req);
 
         const user = await this.userService.getByEmail(validated.email);

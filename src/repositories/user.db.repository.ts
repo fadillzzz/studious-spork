@@ -22,6 +22,16 @@ export class UserDbRepository implements UserRepository {
         return true;
     }
 
+    async get(id: string): Promise<User | null> {
+        const user = await UserModel.query().findById(id);
+
+        if (!user) {
+            return null;
+        }
+
+        return user.toObject();
+    }
+
     async getByEmail(email: string): Promise<User | null> {
         const user = await UserModel.query().findOne({ email });
 
@@ -29,12 +39,7 @@ export class UserDbRepository implements UserRepository {
             return null;
         }
 
-        return {
-            id: user.id,
-            email: user.email,
-            name: user.name,
-            password: user.password,
-        };
+        return user.toObject();
     }
 
     async exists(id: string): Promise<boolean> {

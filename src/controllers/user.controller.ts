@@ -11,17 +11,19 @@ export class UserController {
         this.userService = userService;
     }
 
-    async create(req: Request, res: Response) {
-        const result = validationResult(req);
-
-        if (!result.isEmpty()) {
-            return res.send({ errors: result.array() });
-        }
-
+    async create(req: Request, res: Response): Promise<Response> {
         const validated = matchedData(req) as Omit<User, "id">;
 
         const user: User = await this.userService.create(validated);
 
         return res.json(transformUser(user));
+    }
+
+    async get(req: Request, res: Response): Promise<Response> {
+        const validated = matchedData(req);
+
+        const user = await this.userService.get(validated.id);
+
+        return res.json(transformUser(user!));
     }
 }
