@@ -37,4 +37,12 @@ export class UserController {
 
         return res.json(transformUser(user!));
     }
+
+    async delete(req: Request, res: Response): Promise<Response> {
+        const id = req.params.id;
+
+        await this.userService.delete(id);
+
+        return res.status(204).json();
+    }
 }

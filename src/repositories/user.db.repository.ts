@@ -48,6 +48,12 @@ export class UserDbRepository implements UserRepository {
         return rows === 1;
     }
 
+    async delete(id: string): Promise<boolean> {
+        const rows = await UserModel.query().deleteById(id);
+
+        return rows === 1;
+    }
+
     async exists(id: string): Promise<boolean> {
         return this.existsBy("id", id);
     }

@@ -33,6 +33,7 @@ app.get(
     "/users/:id",
     authMiddleware,
     userGetValidator,
+    errorResponseMiddleware,
     userExistsMiddleware,
     errorResponseMiddleware,
     userController.get.bind(userController),
@@ -41,11 +42,22 @@ app.patch(
     "/users/:id",
     authMiddleware,
     userGetValidator,
+    errorResponseMiddleware,
     userExistsMiddleware,
     userOwnerMiddleware,
     userUpdateValidator,
+    // Intentionally registering this middleware twice because another validator had just executed
     errorResponseMiddleware,
     userController.update.bind(userController),
+);
+app.delete(
+    "/users/:id",
+    authMiddleware,
+    userGetValidator,
+    errorResponseMiddleware,
+    userExistsMiddleware,
+    userOwnerMiddleware,
+    userController.delete.bind(userController),
 );
 
 export { app };

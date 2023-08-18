@@ -62,4 +62,28 @@ describe("UserController", () => {
             }),
         );
     });
+
+    it("should be able to delete an existing user", async () => {
+        const { user, token } = await createUserWithToken({
+            name: "to be deleted",
+            email: "will@delete.tld",
+        });
+
+        const response = await supertest(app)
+            .delete(`/users/${user.id}`)
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(response.statusCode).toBe(204);
+
+        const { user: user1, token: token1 } = await createUserWithToken({
+            name: "remain",
+            email: "user@checked.tld",
+        });
+
+        const checkResponse = await supertest(app)
+            .get(`/users/${user.id}`)
+            .set("Authorization", `Bearer ${token1}`);
+
+        expect(checkResponse.statusCode).toBe(404);
+    });
 });

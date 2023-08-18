@@ -42,6 +42,10 @@ export class UserService {
         return this.userRepo.update(id, userPayload);
     }
 
+    async delete(id: string): Promise<boolean> {
+        return this.userRepo.delete(id);
+    }
+
     async exists(id: string): Promise<boolean> {
         return this.userRepo.exists(id);
     }

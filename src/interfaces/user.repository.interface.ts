@@ -30,8 +30,17 @@ export interface UserRepository {
      *
      * @param string id
      * @param Partial<User> user
+     * * @return Promise<boolean>
      */
     update(id: string, user: Partial<User>): Promise<boolean>;
+
+    /**
+     * Deletes a user based on the specified ID
+     *
+     * @param string id
+     * @return Promise<boolean>
+     */
+    delete(id: string): Promise<boolean>;
 
     /**
      * Returns true if the given ID exists, false otherwise
