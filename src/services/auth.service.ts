@@ -31,6 +31,26 @@ export class AuthService {
     }
 
     /**
+     * Verify the given token and returns a partial User object
+     *
+     * @param string token
+     * @return Promise<Omit<User, 'password'>>
+     */
+    async verify(token: string): Promise<Omit<User, "password">> {
+        return new Promise((resolve, reject) => {
+            jwt.verify(token, this.secret, {}, (err, decoded) => {
+                if (err) {
+                    reject(err);
+                }
+
+                if (decoded) {
+                    resolve(decoded as Omit<User, "password">);
+                }
+            });
+        });
+    }
+
+    /**
      * Verify that the given plain text password matches the given hash
      *
      * @param string hash
