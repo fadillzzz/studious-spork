@@ -9,6 +9,14 @@ export interface UserRepository {
     save(user: User): Promise<boolean>;
 
     /**
+     * Returns a user object given their email address. Returns null if it doesn't exist
+     *
+     * @param string email
+     * @return Promise<User>
+     */
+    getByEmail(email: string): Promise<User | null>;
+
+    /**
      * Returns true if the given ID exists, false otherwise
      *
      * @return Promise<boolean>
