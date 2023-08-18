@@ -4,6 +4,7 @@ export interface UserRepository {
     /**
      * Writes user data into the database. Returns true if the operation was successful.
      *
+     * @param User user
      * @return Promise<boolean>
      */
     save(user: User): Promise<boolean>;
@@ -23,6 +24,14 @@ export interface UserRepository {
      * @return Promise<User|null>
      */
     getByEmail(email: string): Promise<User | null>;
+
+    /**
+     * Updates the specified user with new data. Returns true if successful.
+     *
+     * @param string id
+     * @param Partial<User> user
+     */
+    update(id: string, user: Partial<User>): Promise<boolean>;
 
     /**
      * Returns true if the given ID exists, false otherwise

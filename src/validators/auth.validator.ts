@@ -1,7 +1,7 @@
 import { Schema, body, checkSchema } from "express-validator";
 import { getAuthService, getUserService } from "../services/registry";
 
-const AuthValidatorSchema: Schema = {
+const authValidatorSchema: Schema = {
     email: {
         trim: true,
         isEmail: { errorMessage: "Must be an email", bail: true },
@@ -35,4 +35,4 @@ const AuthValidatorSchema: Schema = {
     },
 };
 
-export const AuthValidator = checkSchema(AuthValidatorSchema, ["body"]);
+export const authValidator = checkSchema(authValidatorSchema, ["body"]);

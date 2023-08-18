@@ -1,6 +1,6 @@
 import supertest from "supertest";
 import { app } from "../src/app";
-import { getUserService } from "../src/services/registry";
+import { createUserWithToken } from "./helpers";
 
 describe("UserController", () => {
     it("should be able to create a new user", async () => {
@@ -21,14 +21,14 @@ describe("UserController", () => {
     });
 
     it("should be able to retrieve an existing user", async () => {
-        const userService = getUserService();
-        const user = await userService.create({
-            name: "fake user",
-            email: "bruh@email.com",
-            password: "123456789",
+        const { user, token } = await createUserWithToken({
+            name: "new fake user",
+            email: "gamers@riseup.com",
         });
 
-        const response = await supertest(app).get(`/users/${user.id}`);
+        const response = await supertest(app)
+            .get(`/users/${user.id}`)
+            .set("Authorization", `Bearer ${token}`);
 
         expect(response.statusCode).toBe(200);
         expect(response.body).toEqual(
@@ -36,6 +36,29 @@ describe("UserController", () => {
                 id: user.id,
                 name: user.name,
                 email: user.email,
+            }),
+        );
+    });
+
+    it("should be able to update an existing user", async () => {
+        const { user, token } = await createUserWithToken({
+            name: "Wow",
+            email: "mei@maiden.tv",
+        });
+
+        const response = await supertest(app)
+            .patch(`/users/${user.id}`)
+            .send({
+                name: "Mei",
+                email: "mei@twitch.tv",
+            })
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toEqual(
+            expect.objectContaining({
+                name: "Mei",
+                email: "mei@twitch.tv",
             }),
         );
     });

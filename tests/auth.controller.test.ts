@@ -1,18 +1,16 @@
 import supertest from "supertest";
 import { app } from "../src/app";
-import { getUserService } from "../src/services/registry";
+import { createTestUser } from "./helpers";
 
 describe("AuthController", () => {
     it("should be able to create token", async () => {
-        const userService = getUserService();
-        await userService.create({
+        const user = await createTestUser({
             name: "fake user",
             email: "bruh@email.com",
-            password: "123456789",
         });
 
         const response = await supertest(app).post("/tokens").send({
-            email: "bruh@email.com",
+            email: user.email,
             password: "123456789",
         });
 

@@ -2,7 +2,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node build/server.js",
-    "dev": "nodemon --watch src -e ts --exec ts-node src/server.ts"
+    "dev": "nodemon --watch src -e ts --exec 'ts-node --files src/server.ts'"
   },
   "dependencies": {
     "argon2": "^0.31.0",

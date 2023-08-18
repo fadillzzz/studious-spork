@@ -26,4 +26,15 @@ export class UserController {
 
         return res.json(transformUser(user!));
     }
+
+    async update(req: Request, res: Response): Promise<Response> {
+        const id = req.params.id;
+        const validated = matchedData(req, { locations: ["body"] });
+
+        await this.userService.update(id, validated);
+
+        const user = await this.userService.get(id);
+
+        return res.json(transformUser(user!));
+    }
 }

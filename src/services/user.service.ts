@@ -32,6 +32,16 @@ export class UserService {
         return this.userRepo.getByEmail(email);
     }
 
+    async update(id: string, userPayload: Partial<User>): Promise<boolean> {
+        if (userPayload.password) {
+            userPayload.password = await this.authService.hash(
+                userPayload.password,
+            );
+        }
+
+        return this.userRepo.update(id, userPayload);
+    }
+
     async exists(id: string): Promise<boolean> {
         return this.userRepo.exists(id);
     }

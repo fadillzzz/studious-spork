@@ -42,6 +42,12 @@ export class UserDbRepository implements UserRepository {
         return user.toObject();
     }
 
+    async update(id: string, user: Partial<User>): Promise<boolean> {
+        const rows = await UserModel.query().where("id", id).update(user);
+
+        return rows === 1;
+    }
+
     async exists(id: string): Promise<boolean> {
         return this.existsBy("id", id);
     }

@@ -1,7 +1,7 @@
 import { Schema, checkSchema } from "express-validator";
 import { getUserService } from "../services/registry";
 
-export const UserCreateSchema: Schema = {
+export const userCreateSchema: Schema = {
     name: {
         trim: true,
         isString: {
@@ -37,4 +37,4 @@ export const UserCreateSchema: Schema = {
     },
 };
 
-export const UserCreateValidator = checkSchema(UserCreateSchema, ["body"]);
+export const userCreateValidator = checkSchema(userCreateSchema, ["body"]);

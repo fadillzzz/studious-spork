@@ -9,11 +9,6 @@ export async function authMiddleware(
     res: Response,
     next: NextFunction,
 ) {
-    // Disables this middleware in test environment to make testing easier
-    if (process.env.NODE_ENV === "test") {
-        return next();
-    }
-
     const value = req.headers["authorization"] || "";
 
     try {
@@ -35,6 +30,8 @@ export async function authMiddleware(
         if (!(await userService.exists(user.id))) {
             throw new Error("Invalid token");
         }
+
+        req.user = user;
 
         next();
     } catch (e: any) {
